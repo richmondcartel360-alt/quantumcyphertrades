@@ -9,6 +9,29 @@ execution, and dashboard/tutorials.
 > Router** single-page app. The commands, build output, and environment variables
 > below differ accordingly.
 
+## Analysis Tools for Advanced Digits Trading
+
+Advanced analysis tools to enhance your digits trading strategy:
+
+### Features
+- **Real-time Digit Pattern Recognition** — Analyze historical digit sequences and identify recurring patterns
+- **Volatility Index (VIX) Integration** — Monitor market volatility for optimal entry/exit timing
+- **Probability Calculator** — Calculate win probabilities based on historical data and current market conditions
+- **Heat Map Analysis** — Visual representation of digit frequency distribution across timeframes
+- **Trend Analyzer** — Detect uptrends, downtrends, and consolidation phases in digit movements
+- **Risk Assessment Dashboard** — Real-time risk metrics and exposure management
+- **Backtesting Engine** — Test strategies against historical data with detailed performance metrics
+- **Signal Generation** — AI-powered trading signals based on multi-factor analysis
+
+### Quick Start with Analysis Tools
+1. Access the **Analysis Tools** panel from the main dashboard
+2. Select your desired analysis type (Pattern, Volatility, Probability, etc.)
+3. Configure timeframe and lookback period
+4. View insights and integrate signals into your trading strategy
+5. Export analysis reports for further review
+
+---
+
 ## Prerequisites
 
 - Node.js 18.18 or later
