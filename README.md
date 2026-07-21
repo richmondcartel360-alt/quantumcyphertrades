@@ -30,6 +30,8 @@ Advanced analysis tools to enhance your digits trading strategy:
 4. View insights and integrate signals into your trading strategy
 5. Export analysis reports for further review
 
+**Live Site:** [https://quantumcyphertrades.netlify.app](https://quantumcyphertrades.netlify.app)
+
 ---
 
 ## Prerequisites
