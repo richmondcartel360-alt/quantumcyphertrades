@@ -1,4 +1,4 @@
-# Deriv Trading Bot
+# Deriv Trading Bot - Quantum Cypher Tardes
 
 A self-hosted, visual trading-bot builder on the Deriv WebSocket API. Drag-and-drop
 strategy building with Blockly, an interactive SmartCharts chart, automated strategy
@@ -38,16 +38,13 @@ Advanced analysis tools to enhance your digits trading strategy:
 
 - Node.js 18.18 or later
 
-## Step 1: Register Your App ID
+## Application Setup
 
-1. Log in to your Deriv account and go to the [API Token page](https://app.deriv.com/account/api-token) to create a token with the required scopes.
-2. Navigate to [App Registration](https://developers.deriv.com/dashboard/) and register a new application.
-3. Set the **Redirect URI** to the URL where you will host this app (e.g. `http://localhost:4003` for local development).
-4. Copy the **App ID** shown after registration — you will need it in the next step.
+This application is already registered with Deriv. Your App ID and OAuth credentials are configured in the environment variables below.
 
-## Step 2: Configure `.env`
+## Environment Configuration
 
-Copy `.env.example` to `.env` and fill in your values:
+Copy `.env.example` to `.env` and fill in your Deriv credentials:
 
 ```bash
 cp .env.example .env
@@ -55,29 +52,34 @@ cp .env.example .env
 
 ```env
 # Required: Deriv app id — drives OAuth login/sign-up and WebSocket connections.
-NEXT_PUBLIC_DERIV_APP_ID=your_app_id_here
+# Currently registered as: Quantum Cypher Tardes
+NEXT_PUBLIC_DERIV_APP_ID=your_registered_deriv_app_id
 
-# Optional: environment + affiliate attribution.
+# Environment: production for live Deriv, staging/preview for test environment
 NEXT_PUBLIC_DERIV_ENV=production
+
+# Optional: Affiliate/referral tracking
 NEXT_PUBLIC_DERIV_REFERRAL_LINK=your_referral_link_here
 
-# Optional: Google Drive integration (leave blank to disable).
-GD_CLIENT_ID=
-GD_APP_ID=
-GD_API_KEY=
+# Optional: Google Drive integration for saving/loading strategies
+GD_CLIENT_ID=your_google_drive_client_id
+GD_APP_ID=your_google_drive_app_id
+GD_API_KEY=your_google_drive_api_key
 ```
 
 | Variable | Description |
 |---|---|
-| `NEXT_PUBLIC_DERIV_APP_ID` | Deriv app id issued for your registered app. Drives OAuth login/sign-up and WebSocket connections. Without it, Log in / Sign up stay disabled. |
-| `NEXT_PUBLIC_DERIV_ENV` | `production` for live Deriv endpoints; `preview` (or `staging`) for staging. Read by both the bot's URL resolver and `@deriv/core` for OAuth. |
-| `NEXT_PUBLIC_DERIV_REFERRAL_LINK` | Affiliate referral link — appended as `affiliate_token` / `utm_campaign` on OAuth (optional). |
-| `GD_CLIENT_ID` / `GD_APP_ID` / `GD_API_KEY` | Google Drive integration credentials for saving/loading strategies (optional). |
+| `NEXT_PUBLIC_DERIV_APP_ID` | Your registered Deriv app ID. Drives OAuth login/sign-up and WebSocket connections. |
+| `NEXT_PUBLIC_DERIV_ENV` | `production` for live trading; `staging` or `preview` for test environment. |
+| `NEXT_PUBLIC_DERIV_REFERRAL_LINK` | Affiliate referral link for attribution (optional). |
+| `GD_CLIENT_ID` | Google Drive OAuth 2.0 Client ID (optional). |
+| `GD_APP_ID` | Google Drive project number (optional). |
+| `GD_API_KEY` | Google Drive API key (optional). |
 
 > These variables are injected at **build time** via Rsbuild's `source.define`
 > (see `rsbuild.config.ts`), so re-build after changing them.
 
-## Step 3: Local Development
+## Local Development
 
 ```bash
 npm install
@@ -87,7 +89,7 @@ npm run dev
 The app is available at `http://localhost:4003`. (`npm install` and `npm run dev`
 also regenerate brand CSS — see Branding below.)
 
-## Step 4: Build for Production
+## Build for Production
 
 ```bash
 npm run build
@@ -97,7 +99,7 @@ This produces a static build in the `dist/` directory (Rsbuild output — there 
 `.next`/`out`). Serve the contents of `dist/` from any web server or static host.
 SmartCharts engine assets are copied into `dist/js/smartcharts/` during the build.
 
-## Google Drive integration (optional)
+## Google Drive Integration (Optional)
 
 Saving/loading strategies to Google Drive stays disabled unless `GD_CLIENT_ID`,
 `GD_APP_ID`, and `GD_API_KEY` are all set. **If it's not set up in your host
@@ -106,16 +108,12 @@ environment yet:**
 1. **Get the credentials** — follow Google's [Picker set-up guide](https://developers.google.com/workspace/drive/picker/guides/web-picker#set-up-environment):
    enable the **Google Picker API** + **Drive API**, then create an **OAuth 2.0
    Client ID** (Web application) and an **API key**. Use the project number as `GD_APP_ID`.
-2. **Authorize your domain** — add your deployed URL (e.g. `https://your-app.vercel.app`)
+2. **Authorize your domain** — add your deployed URL (e.g. `https://quantumcyphertrades.netlify.app`)
    to the OAuth client's **Authorized JavaScript origins** (exact origin; no wildcards).
-3. **Set them in your host env — not in source** — add the three vars to your host
-   (Vercel → Settings → Environment Variables; Heroku → Settings → Config Vars).
+3. **Set them in your host env** — add the three vars to your host environment
+   (Netlify → Site Settings → Build & Deploy → Environment).
    Don't commit them to the repo.
 4. **Rebuild** — they're baked in at build time (`source.define`), so trigger a new build/deploy.
-
-> Deploying via Deriv App Builder? Open your app in **Edit** mode and enter these
-> three values — App Builder injects them into your host environment for you
-> (never into the app source).
 
 ## Branding & White-labeling
 
@@ -128,6 +126,3 @@ not Next.js config:
 - **Logo** — drop a `public/logo.<png|jpg|jpeg|webp>` to set the header logo; it is also
   used as the favicon. Without it, a letter badge (the app name's first letter) is shown.
 - **Theme** — a light/dark toggle lives in the header; the chart re-themes with it.
-
-When assembled by the App Builder, these are configured for you (logo upload, color,
-font, and app name are injected at deploy time).
